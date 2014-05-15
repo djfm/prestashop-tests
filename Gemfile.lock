@@ -1,0 +1,10 @@
+GEM
+  remote: https://rubygems.org/
+  specs:
+    prestashop-automation (0.5)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  prestashop-automation
