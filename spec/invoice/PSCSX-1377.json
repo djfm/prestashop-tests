@@ -1,8 +1,8 @@
 {
 	"spec": {
-		"name": "Basic invoice test with 2 products",
+		"name": "PSCSX-1377",
 		"only": "1.6-git",
-		"skip": true
+		"skip": false
 	},
 	"meta": {
 		"order_process": "five_steps",
@@ -15,21 +15,16 @@
 		"shipping_fees": 0
 	},
 	"products": {
-		"Petit Sachet de Vis Cruciformes": {
-			"price": 1.05,
-			"vat": 19.6,
-			"quantity": 1
-		},
-		"Gros Sachet de Vis Cruciformes": {
-			"price": 3.49,
-			"vat": 19.6,
-			"quantity": 2
+		"Widget": {
+			"price": 50.99,
+			"vat": 20,
+			"quantity": 10
 		}
 	},
 	"expect": {
 		"invoice": {
 			"total": {
-				"to_pay_tax_included": 9.61
+				"to_pay_tax_included": 611.88
 			}
 		}
 	}

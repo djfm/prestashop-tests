@@ -84,16 +84,20 @@ end
 
 Dir.glob File.join(File.dirname(__FILE__), 'invoice/*.json') do |path|
 	data = JSON.parse File.read(path)
-	for_each_version({
-		:except => (data['spec'] and data['spec']['except']),
-		:only => (data['spec'] and data['spec']['only'])
-	}) do |shop|
-		shop.save
-		describe ((data['spec'] and data['spec']['name']) or path) do
-			it 'should compute correctly' do
-				test_invoice shop, data
+
+	unless data['spec'] and data['spec']['skip']
+		for_each_version({
+			:except => (data['spec'] and data['spec']['except']),
+			:only => (data['spec'] and data['spec']['only'])
+		}) do |shop|
+			shop.save
+			name = ((data['spec'] and data['spec']['name']) or File.basename(path, '.rb'))
+			describe name do
+				it 'should compute correctly' do
+					test_invoice shop, data, :dump_pdf_to => File.join(File.dirname(__FILE__), "../output/#{name}.pdf")
+				end
 			end
+			shop.restore
 		end
-		shop.restore
 	end
 end
